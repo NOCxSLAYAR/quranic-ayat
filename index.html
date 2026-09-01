@@ -1,837 +1,759 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ayah Noor — Quranic Guidance</title>
-
-<!-- Browser Tab Logo -->
-<link
-rel="icon"
-type="image/svg+xml"
-href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23061611'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-size='65' fill='%23e4ce87'%3E☾%3C/text%3E%3C/svg%3E"
->
-
-<style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
 
 
-/* =====================================================
-   BODY
-===================================================== */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-body{
+    <title>Ayah Noor - Quranic Guidance</title>
 
-    min-height:100vh;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+        :root {
+            --bg: #061611;
+            --card: rgba(255, 255, 255, .055);
+            --border: rgba(255, 255, 255, .11);
+            --text: #f4faf6;
+            --muted: #95aaa2;
+            --green: #a9dfb8;
+            --green-dark: #6fbe88;
+            --gold: #d9c47d;
+        }
 
-    color:#ffffff;
+        body {
+            min-height: 100vh;
+            padding: 20px 14px;
 
-    padding:25px 15px;
+            font-family: Arial, Helvetica, sans-serif;
 
-    background:
+            color: var(--text);
 
-    radial-gradient(
-        circle at 10% 10%,
-        #164b38,
-        transparent 35%
-    ),
+            background:
+                radial-gradient(circle at 10% 0%,
+                    rgba(72, 150, 105, .20),
+                    transparent 32%),
+                radial-gradient(circle at 90% 100%,
+                    rgba(201, 174, 84, .10),
+                    transparent 30%),
+                var(--bg);
+        }
 
-    radial-gradient(
-        circle at 90% 90%,
-        #4a3e1b,
-        transparent 35%
-    ),
-
-    #061611;
-}
-
-
-/* =====================================================
-   MAIN CONTAINER
-===================================================== */
-
-.container{
-
-    width:min(920px,95%);
-
-    margin:auto;
-
-}
+        .container {
+            width: min(980px, 95%);
+            margin: auto;
+        }
 
 
-/* =====================================================
+        /* =========================================
+   PAGE LOADER
+========================================= */
+
+        #pageLoader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--bg);
+
+            transition:
+                opacity .6s ease,
+                visibility .6s ease;
+        }
+
+        #pageLoader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loaderContent {
+            width: 260px;
+            text-align: center;
+        }
+
+        .loaderSpinner {
+            width: 44px;
+            height: 44px;
+
+            margin: 0 auto 20px;
+
+            border: 3px solid rgba(255, 255, 255, .10);
+
+            border-top-color: var(--green);
+
+            border-radius: 50%;
+
+            animation: spin .8s linear infinite;
+        }
+
+        .loaderContent h2 {
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .loaderContent p {
+            color: var(--green);
+            font-size: 14px;
+        }
+
+        .loaderLine {
+            width: 180px;
+            height: 4px;
+
+            overflow: hidden;
+
+            margin: 18px auto 0;
+
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, .09);
+        }
+
+        .loaderLine span {
+            display: block;
+
+            width: 40%;
+            height: 100%;
+
+            background: var(--green);
+
+            animation: lineMove 1.2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes lineMove {
+
+            0% {
+                transform: translateX(-130%);
+            }
+
+            100% {
+                transform: translateX(380%);
+            }
+
+        }
+
+
+        /* =========================================
    HERO
-===================================================== */
+========================================= */
 
-.hero{
+        .hero {
+            text-align: center;
 
-    text-align:center;
+            padding:
+                35px 0 40px;
+        }
 
-    padding:
-    30px 0
-    35px;
+        .heroTitleSmall {
+            color: var(--gold);
 
-}
+            font-size: 11px;
 
+            letter-spacing: 3px;
 
-.moon{
+            margin-bottom: 18px;
+        }
 
-    font-size:60px;
+        .bismillah {
+            direction: rtl;
+            text-align: center;
 
-    color:#e4ce87;
+            font-family: "Times New Roman", serif;
 
-    text-shadow:
-    0 0 30px
-    rgba(228,206,135,.35);
+            color: var(--green);
 
-}
+            font-size: 29px;
 
+            margin-bottom: 18px;
+        }
 
-.bismillah{
+        .hero h1 {
+            font-size: clamp(44px, 8vw, 72px);
 
-    font-family:
-    "Times New Roman",
-    serif;
+            line-height: 1;
 
-    font-size:29px;
+            letter-spacing: -2px;
 
-    color:#c4e9ce;
+            margin-bottom: 18px;
+        }
 
-    margin:
-    12px 0
-    20px;
+        .hero h1 span {
+            color: var(--green);
+        }
 
-}
+        .heroText {
+            max-width: 700px;
 
+            margin: auto;
 
-h1{
+            color: var(--muted);
 
-    font-size:52px;
+            line-height: 1.8;
 
-    margin-bottom:15px;
+            font-size: 15px;
+        }
 
-    letter-spacing:-1px;
 
-}
+        /* =========================================
+   SEARCH
+========================================= */
 
+        .searchBox {
+            padding: 13px;
 
-h1 span{
+            border-radius: 24px;
 
-    color:#9de0b1;
+            background: var(--card);
 
-}
+            border:
+                1px solid var(--border);
 
+            backdrop-filter: blur(15px);
+        }
 
-.hero p{
+        textarea {
+            width: 100%;
+            height: 125px;
 
-    color:#9cafaa;
+            resize: none;
 
-    line-height:1.8;
+            border: 0;
+            outline: 0;
 
-    max-width:650px;
+            background: transparent;
 
-    margin:auto;
+            color: white;
 
-}
+            padding: 18px;
 
+            font-family: inherit;
 
-/* =====================================================
-   SEARCH AREA
-===================================================== */
+            font-size: 17px;
 
-.search-box{
+            line-height: 1.6;
+        }
 
-    padding:14px;
+        textarea::placeholder {
+            color: #6f857b;
+        }
 
-    border-radius:25px;
+        #searchBtn {
+            width: 100%;
 
-    background:
-    rgba(255,255,255,.065);
+            padding: 16px;
 
-    border:
-    1px solid
-    rgba(255,255,255,.12);
+            border: 0;
 
-    box-shadow:
-    0 20px 60px
-    rgba(0,0,0,.2);
+            border-radius: 15px;
 
-    backdrop-filter:
-    blur(12px);
+            background:
+                linear-gradient(135deg,
+                    #c6ebcf,
+                    #70c58c);
 
-}
+            color: #071b11;
 
+            font-size: 15px;
 
-textarea{
+            font-weight: 700;
 
-    width:100%;
+            cursor: pointer;
 
-    height:125px;
+            transition: .2s;
+        }
 
-    resize:none;
+        #searchBtn:hover {
+            transform: translateY(-2px);
+        }
 
-    border:none;
+        #searchBtn:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
 
-    outline:none;
 
-    background:transparent;
+        /* =========================================
+   EXAMPLES
+========================================= */
 
-    color:#fff;
+        .examples {
+            display: flex;
 
-    font-size:17px;
+            flex-wrap: wrap;
 
-    line-height:1.6;
+            justify-content: center;
 
-    padding:17px;
+            gap: 8px;
 
-}
+            margin-top: 14px;
+        }
 
+        .example {
+            padding: 8px 14px;
 
-textarea::placeholder{
+            border-radius: 30px;
 
-    color:#70867d;
+            border:
+                1px solid var(--border);
 
-}
+            background:
+                rgba(255, 255, 255, .035);
 
+            color: #a3b5ad;
 
-/* =====================================================
-   SEARCH BUTTON
-===================================================== */
+            font-size: 12px;
 
-#searchBtn{
+            cursor: pointer;
+        }
 
-    width:100%;
 
-    padding:16px;
+        /* =========================================
+   SEARCH LOADER
+========================================= */
 
-    border:none;
+        #searchLoading {
+            display: none;
 
-    border-radius:16px;
+            text-align: center;
 
-    text-align: center;
+            margin: 40px 0;
 
-    background:
-    linear-gradient(
-        135deg,
-        #c4ebcd,
-        #70c58c
-    );
+            color: var(--muted);
+        }
 
-    color:#071b11;
+        .searchSpinner {
+            width: 38px;
+            height: 38px;
 
-    font-size:16px;
+            margin: 0 auto 14px;
 
-    font-weight:bold;
+            border-radius: 50%;
 
-    cursor:pointer;
+            border:
+                3px solid rgba(255, 255, 255, .10);
 
-    transition:.25s;
+            border-top-color:
+                var(--green);
 
-}
+            animation:
+                spin .8s linear infinite;
+        }
 
 
-#searchBtn:hover{
+        /* =========================================
+   RESULTS
+========================================= */
 
-    transform:
-    translateY(-2px);
+        .results {
+            margin-top: 55px;
+        }
 
-    box-shadow:
-    0 12px 30px
-    rgba(112,197,140,.2);
+        .resultsHeader {
+            display: flex;
 
-}
+            justify-content: space-between;
 
+            align-items: end;
 
-#searchBtn:disabled{
+            gap: 24px;
 
-    opacity:.6;
+            margin-bottom: 25px;
+        }
 
-    cursor:not-allowed;
+        .resultLabel {
+            color: var(--gold);
 
-}
+            font-size: 11px;
 
+            letter-spacing: 2px;
 
-/* =====================================================
-   EXAMPLE BUTTONS
-===================================================== */
+            margin-bottom: 8px;
+        }
 
-.examples{
+        .resultsHeader h2 {
+            font-size: 32px;
+        }
 
-    display:flex;
+        .resultInfo {
+            margin-top: 7px;
 
-    flex-wrap:wrap;
+            color: var(--muted);
 
-    justify-content:center;
+            font-size: 12px;
+        }
 
-    gap:9px;
 
-    margin-top:15px;
-
-}
-
-
-.example{
-
-    border:
-    1px solid
-    rgba(255,255,255,.1);
-
-    background:
-    rgba(255,255,255,.04);
-
-    color:#a9bbb4;
-
-    padding:
-    8px 15px;
-
-    border-radius:30px;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-
-.example:hover{
-
-    background:
-    rgba(255,255,255,.1);
-
-    color:white;
-
-}
-
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-.loading{
-
-    text-align:center;
-
-    margin:45px 0;
-
-    color:#9fb5ac;
-
-}
-
-
-.spinner{
-
-    width:40px;
-
-    height:40px;
-
-    margin:
-    0 auto 14px;
-
-    border:
-    3px solid
-    rgba(255,255,255,.1);
-
-    border-top-color:
-    #aee4bd;
-
-    border-radius:50%;
-
-    animation:
-    spin .8s linear infinite;
-
-}
-
-
-@keyframes spin{
-
-    to{
-
-        transform:
-        rotate(360deg);
-
-    }
-
-}
-
-
-.hidden{
-
-    display:none;
-
-}
-
-
-/* =====================================================
-   RESULTS HEADER
-===================================================== */
-
-.results{
-
-    margin-top:55px;
-
-}
-
-
-.results-head{
-
-    display:flex;
-
-    justify-content:
-    space-between;
-
-    align-items:end;
-
-    gap:20px;
-
-    margin-bottom:25px;
-
-}
-
-
-.label{
-
-    color:#d9c27b;
-
-    font-size:11px;
-
-    letter-spacing:2px;
-
-    margin-bottom:7px;
-
-}
-
-
-.results-head h2{
-
-    font-size:32px;
-
-}
-
-
-/* =====================================================
+        /* =========================================
    QARI
-===================================================== */
+========================================= */
 
-.qari{
+        .qariBox {
+            width: 280px;
+        }
 
-    width:280px;
+        .qariBox label {
+            display: block;
 
-}
+            color: var(--muted);
 
+            font-size: 12px;
 
-.qari label{
+            margin-bottom: 7px;
+        }
 
-    display:block;
+        select {
+            width: 100%;
 
-    color:#8fa69c;
+            padding: 13px 14px;
 
-    font-size:12px;
+            border-radius: 12px;
 
-    margin-bottom:7px;
+            border:
+                1px solid var(--border);
 
-}
+            background: #102a23;
 
+            color: white;
 
-select{
+            outline: 0;
+        }
 
-    width:100%;
 
-    padding:13px;
+        /* =========================================
+   ONE COMPLETE AYAH = ONE CARD
+========================================= */
 
-    border-radius:12px;
+        .ayahCard {
+            position: relative;
 
-    border:
-    1px solid
-    rgba(255,255,255,.12);
+            padding: 30px;
 
-    outline:none;
+            margin-bottom: 20px;
 
-    background:#102a23;
+            border-radius: 24px;
 
-    color:white;
+            background: var(--card);
 
-    cursor:pointer;
+            border:
+                1px solid var(--border);
 
-}
+            overflow: hidden;
 
+            animation:
+                cardShow .45s ease both;
+        }
 
-/* =====================================================
-   AYAH CARD
-===================================================== */
+        @keyframes cardShow {
 
-.ayah{
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
 
-    position:relative;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-    padding:29px;
+        }
 
-    margin-bottom:22px;
+        .ayahCard::before {
+            content: "";
 
-    border-radius:24px;
+            position: absolute;
 
-    background:
-    rgba(255,255,255,.055);
+            left: 0;
+            top: 0;
 
-    border:
-    1px solid
-    rgba(255,255,255,.1);
+            width: 4px;
+            height: 100%;
 
-    box-shadow:
-    0 15px 50px
-    rgba(0,0,0,.15);
+            background: var(--green-dark);
+        }
 
-    overflow:hidden;
+        .ayahNumber {
+            width: 38px;
+            height: 38px;
 
-    animation:
-    cardIn .5s ease;
+            display: flex;
 
-}
+            align-items: center;
+            justify-content: center;
 
+            border-radius: 50%;
 
-@keyframes cardIn{
+            background:
+                rgba(169, 223, 184, .10);
 
-    from{
+            color: var(--green);
 
-        opacity:0;
+            font-weight: bold;
 
-        transform:
-        translateY(15px);
+            font-size: 13px;
 
-    }
+            margin-bottom: 20px;
+        }
 
-    to{
 
-        opacity:1;
+        /* =========================================
+   COMPLETE ARABIC AYAH
+========================================= */
 
-        transform:
-        translateY(0);
+        .arabic {
+            direction: rtl;
 
-    }
+            unicode-bidi: plaintext;
 
-}
+            text-align: right;
 
+            font-family:
+                "Times New Roman",
+                serif;
 
-.ayah::before{
+            font-size:
+                clamp(30px, 5vw, 43px);
 
-    content:"";
+            line-height: 2.15;
 
-    position:absolute;
+            margin-bottom: 25px;
 
-    left:0;
+            /*
+       Important:
+       entire verse stays in one element.
+    */
 
-    top:0;
+            display: block;
 
-    width:4px;
+            width: 100%;
+        }
 
-    height:100%;
 
-    background:#82c997;
-
-}
-
-
-.number{
-
-    width:40px;
-
-    height:40px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:
-    rgba(150,220,170,.1);
-
-    color:#aee4bd;
-
-    margin-bottom:18px;
-
-    font-weight:bold;
-
-}
-
-
-/* =====================================================
-   ARABIC
-===================================================== */
-
-.arabic{
-
-    direction:rtl;
-
-    text-align:right;
-
-    font-family:
-    "Times New Roman",
-    serif;
-
-    font-size:40px;
-
-    line-height:2.1;
-
-    margin-bottom:25px;
-
-}
-
-
-/* =====================================================
+        /* =========================================
    URDU
-===================================================== */
+========================================= */
 
-.translation{
+        .translationBox {
+            padding: 20px;
 
-    padding:18px;
+            border-radius: 16px;
 
-    border-radius:16px;
+            background:
+                rgba(255, 255, 255, .035);
 
-    background:
-    rgba(255,255,255,.035);
+            border:
+                1px solid rgba(255, 255, 255, .06);
 
-    border:
-    1px solid
-    rgba(255,255,255,.06);
+            margin-bottom: 15px;
+        }
 
-}
+        .translationTitle {
+            direction: rtl;
+
+            text-align: right;
+
+            color: var(--gold);
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 12px;
+        }
+
+        .urdu {
+            direction: rtl !important;
+
+            unicode-bidi: plaintext;
+
+            text-align: right !important;
+
+            font-family:
+                "Noto Nastaliq Urdu",
+                "Jameel Noori Nastaleeq",
+                "Noto Sans Arabic",
+                Arial,
+                sans-serif;
+
+            font-size: 20px;
+
+            line-height: 2.3;
+
+            color: #edf4ef;
+
+            display: block;
+
+            width: 100%;
+        }
 
 
-.translation-title{
-
-    color:#d8c27e;
-
-    font-size:11px;
-
-    font-weight:bold;
-
-    letter-spacing:1.5px;
-
-    margin-bottom:10px;
-
-}
-
-
-.urdu{
-
-    direction:rtl;
-
-    text-align:right;
-
-    font-size:21px;
-
-    line-height:2;
-
-    color:#e1ebe6;
-
-}
-
-
-/* =====================================================
+        /* =========================================
    REFERENCE
-===================================================== */
+========================================= */
 
-.reference{
+        .reference {
+            margin:
+                17px 0;
 
-    margin:
-    17px 0;
+            color: var(--gold);
 
-    color:#d8c27e;
-
-    font-size:13px;
-
-}
+            font-size: 13px;
+        }
 
 
-/* =====================================================
+        /* =========================================
    AUDIO
-===================================================== */
+========================================= */
 
-.audio{
+        .audioBox {
+            padding-top: 18px;
 
-    padding-top:18px;
+            border-top:
+                1px solid rgba(255, 255, 255, .08);
+        }
 
-    border-top:
-    1px solid
-    rgba(255,255,255,.08);
+        .audioTop {
+            display: flex;
 
-}
+            align-items: center;
 
+            gap: 13px;
 
-.audio-top{
+            margin-bottom: 12px;
+        }
 
-    display:flex;
+        .playButton {
+            min-width: 74px;
 
-    align-items:center;
+            height: 44px;
 
-    gap:13px;
+            border: 0;
 
-}
+            border-radius: 11px;
 
+            background: var(--green);
 
-.play{
+            color: #092017;
 
-    width:50px;
+            cursor: pointer;
 
-    height:50px;
+            font-size: 13px;
 
-    border:none;
+            font-weight: bold;
+        }
 
-    border-radius:50%;
+        .audioText strong {
+            display: block;
 
-    background:#b9e6c5;
+            font-size: 13px;
 
-    color:#092017;
+            margin-bottom: 4px;
+        }
 
-    font-size:18px;
+        .audioText small {
+            color: #80958c;
+        }
 
-    cursor:pointer;
+        .audioPlayer {
+            width: 100%;
 
-    transition:.2s;
+            margin-top: 5px;
+        }
 
-}
+        .audioStatus {
+            min-height: 18px;
 
+            margin-top: 7px;
 
-.play:hover{
+            color: #82978f;
 
-    transform:
-    scale(1.06);
-
-}
-
-
-.audio-info strong{
-
-    display:block;
-
-    font-size:14px;
-
-}
-
-
-.audio-info small{
-
-    color:#81968e;
-
-}
+            font-size: 12px;
+        }
 
 
-audio{
+        /* =========================================
+   MESSAGE
+========================================= */
 
-    width:100%;
+        .messageCard {
+            padding: 25px;
 
-    margin-top:13px;
+            border-radius: 20px;
 
-}
+            background: var(--card);
 
+            border:
+                1px solid var(--border);
 
-.status{
+            color: var(--muted);
 
-    margin-top:7px;
+            line-height: 1.8;
+        }
 
-    font-size:12px;
-
-    color:#82988f;
-
-}
-
-
-/* =====================================================
-   ERROR
-===================================================== */
-
-.error{
-
-    color:#ffb5b5;
-
-}
+        .error {
+            color: #ffb4b4;
+        }
 
 
-/* =====================================================
+        /* =========================================
    MOBILE
-===================================================== */
+========================================= */
 
-@media(max-width:650px){
+        @media(max-width:650px) {
 
-    body{
+            body {
+                padding:
+                    14px 9px;
+            }
 
-        padding:
-        15px 10px;
+            .bismillah {
+                font-size: 24px;
+            }
 
-    }
+            .hero h1 {
+                font-size: 42px;
+            }
 
+            .resultsHeader {
+                flex-direction: column;
 
-    h1{
+                align-items: stretch;
+            }
 
-        font-size:41px;
+            .qariBox {
+                width: 100%;
+            }
 
-    }
+            .ayahCard {
+                padding: 21px;
+            }
 
+            .arabic {
+                font-size: 30px;
+                line-height: 2;
+            }
 
-    .bismillah{
+            .urdu {
+                font-size: 18px;
+            }
 
-        font-size:24px;
-
-    }
-
-
-    .results-head{
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-    }
-
-
-    .qari{
-
-        width:100%;
-
-    }
-
-
-    .ayah{
-
-        padding:21px;
-
-    }
-
-
-    .arabic{
-
-        font-size:30px;
-
-    }
-
-
-    .urdu{
-
-        font-size:18px;
-
-    }
-
-}
-
-</style>
+        }
+    </style>
 
 </head>
 
@@ -839,890 +761,1831 @@ audio{
 <body>
 
 
-<div class="container">
+    <!-- =========================================
+     PAGE LOADER
+========================================= -->
+
+    <div id="pageLoader">
+
+        <div class="loaderContent">
+
+            <div class="loaderSpinner"></div>
+
+            <h2>
+                Ayah Noor
+            </h2>
+
+            <p>
+                Quranic Guidance
+            </p>
+
+            <div class="loaderLine">
+                <span></span>
+            </div>
+
+        </div>
+
+    </div>
 
 
-<!-- =====================================================
+    <div class="container">
+
+
+        <!-- =========================================
      HERO
-===================================================== -->
+========================================= -->
 
-<section class="hero">
+        <section class="hero">
 
+            <div class="heroTitleSmall">
+                QURANIC GUIDANCE
+            </div>
 
-    <div class="moon">
-        ☾
-    </div>
+            <div class="bismillah">
+                بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+            </div>
 
+            <h1>
+                Find Your <span>Ayah</span>
+            </h1>
 
-    <div class="bismillah">
+            <p class="heroText">
 
-        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+                Write what is on your mind and discover
+                relevant complete Quranic verses with
+                Urdu translation and recitation.
 
-    </div>
+            </p>
 
-
-    <h1>
-
-        Find Your
-        <span>Ayah</span>
-
-    </h1>
-
-
-    <p>
-
-        Apne dil ki baat likhein aur Quran ki
-        relevant ayat discover karein.
-
-    </p>
+        </section>
 
 
-</section>
-
-
-<!-- =====================================================
+        <!-- =========================================
      SEARCH
-===================================================== -->
+========================================= -->
 
-<section class="search-box">
+        <section class="searchBox">
 
-
-<textarea
-id="prompt"
-placeholder="Example: Mujhe sabr ke bare mein ayat chahiye..."
-></textarea>
+            <textarea id="prompt" placeholder="For example: Mujhe dil ka sukoon chahiye..."></textarea>
 
 
-<button id="searchBtn">
-
-     Find Quranic Guidance
-
-</button>
+            <button id="searchBtn">
+                Find Quranic Guidance
+            </button>
 
 
-<div class="examples">
+            <div class="examples">
+
+                <button class="example">
+                    Sabr in difficult times
+                </button>
+
+                <button class="example">
+                    Allah par bharosa
+                </button>
+
+                <button class="example">
+                    Dil ka sukoon
+                </button>
+
+                <button class="example">
+                    Allah ki rehmat
+                </button>
+
+                <button class="example">
+                    Maafi
+                </button>
+
+            </div>
+
+        </section>
 
 
-<button class="example">
-    Sabr
-</button>
+        <!-- =========================================
+     SEARCH LOADER
+========================================= -->
+
+        <div id="searchLoading">
+
+            <div class="searchSpinner"></div>
+
+            Searching Quranic guidance...
+
+        </div>
 
 
-<button class="example">
-    Allah par bharosa
-</button>
-
-
-<button class="example">
-    Rehmat
-</button>
-
-
-<button class="example">
-    Maafi
-</button>
-
-
-<button class="example">
-    Sukoon
-</button>
-
-
-</div>
-
-
-</section>
-
-
-<!-- =====================================================
-     LOADING
-===================================================== -->
-
-<div
-id="loading"
-class="loading hidden"
->
-
-    <div class="spinner"></div>
-
-    Quran se relevant ayat search ho rahi hai...
-
-</div>
-
-
-<!-- =====================================================
+        <!-- =========================================
      RESULTS
-===================================================== -->
+========================================= -->
 
-<section
-id="results"
-class="results hidden"
->
+        <section id="results" class="results" style="display:none;">
+
+            <div class="resultsHeader">
+
+                <div>
+
+                    <div class="resultLabel">
+                        QURANIC GUIDANCE
+                    </div>
+
+                    <h2>
+                        Ayat for you
+                    </h2>
+
+                    <div id="resultInfo" class="resultInfo"></div>
+
+                </div>
 
 
-<div class="results-head">
+                <div class="qariBox">
+
+                    <label>
+                        Choose Qari
+                    </label>
+
+                    <select id="reciter">
+
+                        <option value="ar.alafasy">
+                            Mishary Rashid Alafasy
+                        </option>
+
+                        <option value="ar.husary">
+                            Mahmoud Khalil Al-Husary
+                        </option>
+
+                        <option value="ar.minshawi">
+                            Mohamed Siddiq Al-Minshawi
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
 
 
-<div>
+            <div id="cards"></div>
 
-    <div class="label">
+        </section>
 
-        QURANIC GUIDANCE
 
     </div>
 
 
-    <h2>
+    <script>
 
-        Ayat for you
+        /* =========================================
+           PAGE LOADER
+        ========================================= */
 
-    </h2>
+        window.addEventListener(
+            "load",
+            function () {
 
-</div>
+                const loader =
+                    document.getElementById(
+                        "pageLoader"
+                    );
 
+                setTimeout(
+                    function () {
 
-<!-- QARI SELECT -->
+                        loader.classList.add(
+                            "hide"
+                        );
 
-<div class="qari">
+                    },
+                    900
+                );
 
-
-<label>
-
-    🎙️ Choose Qari
-
-</label>
-
-
-<select id="reciter">
-
-
-<option value="ar.alafasy">
-
-    Mishary Rashid Alafasy
-
-</option>
-
-
-<option value="ar.husary">
-
-    Mahmoud Khalil Al-Husary
-
-</option>
-
-
-<option value="ar.minshawi">
-
-    Mohamed Siddiq Al-Minshawi
-
-</option>
-
-
-</select>
-
-
-</div>
-
-
-</div>
-
-
-<div id="cards"></div>
-
-
-</section>
-
-
-</div>
-
-
-
-<script>
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const promptBox =
-document.getElementById("prompt");
-
-
-const searchBtn =
-document.getElementById("searchBtn");
-
-
-const loading =
-document.getElementById("loading");
-
-
-const results =
-document.getElementById("results");
-
-
-const cards =
-document.getElementById("cards");
-
-
-const reciter =
-document.getElementById("reciter");
-
-
-/* =====================================================
-   SMART TOPIC MAP
-===================================================== */
-
-const TOPICS = {
-
-    "sabr":
-    "patience",
-
-    "sabar":
-    "patience",
-
-    "patience":
-    "patience",
-
-    "mushkil":
-    "patience",
-
-    "problem":
-    "patience",
-
-    "pareshan":
-    "patience",
-
-    "tension":
-    "patience",
-
-
-    "rehmat":
-    "mercy",
-
-    "rahmat":
-    "mercy",
-
-    "mercy":
-    "mercy",
-
-
-    "maafi":
-    "forgiveness",
-
-    "maaf":
-    "forgiveness",
-
-    "forgive":
-    "forgiveness",
-
-    "forgiveness":
-    "forgiveness",
-
-
-    "sukoon":
-    "peace",
-
-    "peace":
-    "peace",
-
-    "udaasi":
-    "peace",
-
-    "sad":
-    "peace",
-
-
-    "bharosa":
-    "trust",
-
-    "tawakkul":
-    "trust",
-
-    "trust":
-    "trust",
-
-    "allah par bharosa":
-    "trust"
-
-};
-
-
-/* =====================================================
-   EXAMPLES
-===================================================== */
-
-document
-.querySelectorAll(".example")
-.forEach(button=>{
-
-    button.onclick=()=>{
-
-        promptBox.value =
-        button.textContent.trim();
-
-        promptBox.focus();
-
-    };
-
-});
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-searchBtn.onclick =
-searchQuran;
-
-
-/* =====================================================
-   ENTER
-===================================================== */
-
-promptBox.addEventListener(
-"keydown",
-event=>{
-
-    if(
-        event.key === "Enter" &&
-        !event.shiftKey
-    ){
-
-        event.preventDefault();
-
-        searchQuran();
-
-    }
-
-});
-
-
-/* =====================================================
-   SMART SEARCH
-===================================================== */
-
-async function searchQuran(){
-
-    let query =
-    promptBox.value
-    .trim()
-    .toLowerCase();
-
-
-    if(!query){
-
-        alert(
-            "Pehle apni feeling ya topic likhein"
+            }
         );
 
-        return;
 
-    }
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
+        const promptInput =
+            document.getElementById(
+                "prompt"
+            );
+
+        const searchButton =
+            document.getElementById(
+                "searchBtn"
+            );
+
+        const searchLoading =
+            document.getElementById(
+                "searchLoading"
+            );
+
+        const results =
+            document.getElementById(
+                "results"
+            );
+
+        const cards =
+            document.getElementById(
+                "cards"
+            );
+
+        const resultInfo =
+            document.getElementById(
+                "resultInfo"
+            );
+
+        const reciter =
+            document.getElementById(
+                "reciter"
+            );
 
 
-    loading.classList.remove(
-        "hidden"
-    );
+        /* =========================================
+           CURATED RELEVANT VERSES
+        ========================================= */
+
+        const TOPICS = {
+
+            patience: {
+
+                keywords: [
+
+                    "sabr",
+                    "sabar",
+                    "patience",
+                    "mushkil waqt",
+                    "difficult time",
+                    "hard time",
+                    "mushkil",
+                    "mushkilat",
+                    "pareshani",
+                    "pareshan",
+                    "takleef",
+                    "problem",
+                    "azmaish",
+                    "imtihan"
+
+                ],
+
+                verses: [
+
+                    "2:153",
+                    "2:155",
+                    "2:156",
+                    "3:200",
+                    "39:10",
+                    "12:90",
+                    "94:5",
+                    "94:6"
+
+                ]
+
+            },
 
 
-    results.classList.add(
-        "hidden"
-    );
+            trust: {
+
+                keywords: [
+
+                    "bharosa",
+                    "allah par bharosa",
+                    "tawakkul",
+                    "trust",
+                    "trust in allah",
+                    "allah par yaqeen",
+                    "yaqeen"
+
+                ],
+
+                verses: [
+
+                    "3:159",
+                    "3:160",
+                    "5:23",
+                    "9:51",
+                    "14:12",
+                    "33:3",
+                    "65:3"
+
+                ]
+
+            },
 
 
-    cards.innerHTML="";
+            peace: {
+
+                keywords: [
+
+                    "sukoon",
+                    "sukoon e dil",
+                    "dil ka sukoon",
+                    "dil ko sukoon",
+                    "peace",
+                    "inner peace",
+                    "heart peace",
+                    "bechaini",
+                    "ghabrahat"
+
+                ],
+
+                verses: [
+
+                    "13:28",
+                    "48:4",
+                    "94:5",
+                    "94:6",
+                    "89:27",
+                    "89:28",
+                    "89:29",
+                    "89:30"
+
+                ]
+
+            },
 
 
-    searchBtn.disabled=true;
+            mercy: {
 
-    searchBtn.textContent=
-    "Searching...";
+                keywords: [
+
+                    "rehmat",
+                    "rahmat",
+                    "allah ki rehmat",
+                    "allah ki rahmat",
+                    "mercy",
+                    "mehrbani"
+
+                ],
+
+                verses: [
+
+                    "39:53",
+                    "7:156",
+                    "21:107",
+                    "6:54",
+                    "15:49"
+
+                ]
+
+            },
 
 
-    /*
-       User ke sentence se
-       known topic identify karna
-    */
+            forgiveness: {
 
-    for(
-        const key in TOPICS
-    ){
+                keywords: [
 
-        if(
-            query.includes(key)
-        ){
+                    "maafi",
+                    "maaf",
+                    "forgive",
+                    "forgiveness",
+                    "gunah maafi",
+                    "tauba",
+                    "tawba"
 
-            query =
-            TOPICS[key];
+                ],
 
-            break;
+                verses: [
+
+                    "39:53",
+                    "42:25",
+                    "3:135",
+                    "4:110",
+                    "24:22",
+                    "25:70"
+
+                ]
+
+            },
+
+
+            sadness: {
+
+                keywords: [
+
+                    "udaas",
+                    "udaasi",
+                    "udaas hoon",
+                    "sad",
+                    "sadness",
+                    "gham",
+                    "mayusi",
+                    "mayoosi",
+                    "despair",
+                    "hopeless"
+
+                ],
+
+                verses: [
+
+                    "93:3",
+                    "93:4",
+                    "93:5",
+                    "12:87",
+                    "39:53",
+                    "94:5",
+                    "94:6"
+
+                ]
+
+            },
+
+
+            prayer: {
+                keywords: [
+                    "dua",
+                    "dua karna",
+                    "namaz",
+                    "nimaz",
+                    "salah",
+                    "prayer",
+                    "ibadat",
+                    "نماز"
+                ],
+                verses: [
+                    "2:43",
+                    "2:238",
+                    "4:103",
+                    "20:14",
+                    "29:45"
+                ]
+            },
+
+            fasting: {
+                keywords: [
+                    "roza",
+                    "roza rakhna",
+                    "rozay",
+                    "fast",
+                    "fasting",
+                    "sawm",
+                    "siam",
+                    "روزہ"
+                ],
+                verses: [
+                    "2:183",
+                    "2:184",
+                    "2:185"
+                ]
+            },
+
+            hajj: {
+                keywords: [
+                    "hajj",
+                    "haj",
+                    "pilgrimage",
+                    "makkah",
+                    "kaaba",
+                    "kabah",
+                    "حج"
+                ],
+                verses: [
+                    "2:196",
+                    "2:197",
+                    "3:97",
+                    "22:27",
+                    "22:28"
+                ]
+            },
+
+            zakat: {
+                keywords: [
+                    "zakat",
+                    "zakah",
+                    "zakaat",
+                    "zakat dena",
+                    "charity",
+                    "زکات",
+                    "زکوۃ",
+                    "زکوٰۃ"
+                ],
+                verses: [
+                    "2:43",
+                    "2:110",
+                    "9:60",
+                    "9:103",
+                    "24:56"
+                ]
+            },
+
+            gratitude: {
+
+                keywords: [
+
+                    "shukr",
+                    "shukar",
+                    "gratitude",
+                    "thankful",
+                    "allah ka shukr",
+                    "nemat",
+                    "ni'mat"
+
+                ],
+
+                verses: [
+
+                    "14:7",
+                    "2:152",
+                    "31:12",
+                    "16:114"
+
+                ]
+
+            },
+
+
+            parents: {
+
+                keywords: [
+
+                    "walidain",
+                    "parents",
+                    "maa baap",
+                    "maa",
+                    "baap",
+                    "mother",
+                    "father"
+
+                ],
+
+                verses: [
+
+                    "17:23",
+                    "17:24",
+                    "31:14",
+                    "46:15"
+
+                ]
+
+            },
+
+
+            love: {
+
+                keywords: [
+
+                    "mohabbat",
+                    "muhabbat",
+                    "love",
+                    "rishta",
+                    "relationship"
+
+                ],
+
+                verses: [
+
+                    "30:21",
+                    "3:31",
+                    "5:54",
+                    "19:96"
+
+                ]
+
+            },
+
+
+            provision: {
+
+                keywords: [
+
+                    "rizq",
+                    "rozi",
+                    "provision",
+                    "maal",
+                    "money",
+                    "business",
+                    "karobar"
+
+                ],
+
+                verses: [
+
+                    "51:58",
+                    "65:2",
+                    "65:3",
+                    "11:6",
+                    "17:30"
+
+                ]
+
+            },
+
+
+            guidance: {
+
+                keywords: [
+
+                    "hidayat",
+                    "guidance",
+                    "right path",
+                    "seedha rasta",
+                    "sirat"
+
+                ],
+
+                verses: [
+
+                    "1:6",
+                    "2:2",
+                    "17:9",
+                    "39:18",
+                    "10:57"
+
+                ]
+
+            },
+
+
+            knowledge: {
+
+                keywords: [
+
+                    "ilm",
+                    "knowledge",
+                    "education",
+                    "parhai",
+                    "study",
+                    "student"
+
+                ],
+
+                verses: [
+
+                    "20:114",
+                    "39:9",
+                    "58:11",
+                    "96:1",
+                    "96:5"
+
+                ]
+
+            },
+
+
+            fear: {
+
+                keywords: [
+
+                    "khauf",
+                    "fear",
+                    "dar",
+                    "darr",
+                    "fikar",
+                    "fikr",
+                    "anxiety"
+
+                ],
+
+                verses: [
+
+                    "3:175",
+                    "2:38",
+                    "9:40",
+                    "65:2",
+                    "20:46"
+
+                ]
+
+            },
+
+
+            paradise: {
+
+                keywords: [
+
+                    "jannat",
+                    "jannah",
+                    "paradise",
+                    "heaven"
+
+                ],
+
+                verses: [
+
+                    "3:133",
+                    "3:136",
+                    "9:72",
+                    "57:21",
+                    "98:8"
+
+                ]
+
+            }
+
+        };
+
+
+        /* =========================================
+           EXAMPLES
+        ========================================= */
+
+        document
+            .querySelectorAll(
+                ".example"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            promptInput.value =
+                                button.textContent.trim();
+
+                            promptInput.focus();
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================================
+           NORMALIZE TEXT
+        ========================================= */
+
+        function normalizeText(text) {
+
+            return text
+                .toLowerCase()
+                .replace(/[.,!?'"`]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
 
         }
 
-    }
+
+        /* =========================================
+           DETECT TOPICS
+        ========================================= */
+
+        function detectTopics(text) {
+
+            const query =
+                normalizeText(text);
+
+            const foundTopics = [];
 
 
-    try{
+            /*
+               Longer phrases first.
+            */
+
+            const topicEntries =
+                Object.entries(TOPICS)
+                    .map(
+                        ([name, data]) => ({
+                            name,
+                            data
+                        })
+                    );
 
 
-        /* =============================================
-           QURAN.COM SEARCH API
-        ============================================= */
+            for (
+                const entry of topicEntries
+            ) {
 
-        const url =
-        "https://api.quran.com/api/v4/search"
-        +
-        "?q="
-        +
-        encodeURIComponent(query)
-        +
-        "&size=5"
-        +
-        "&page=1"
-        +
-        "&language=en";
+                for (
+                    const keyword of entry.data.keywords
+                ) {
+
+                    if (
+                        query.includes(
+                            normalizeText(keyword)
+                        )
+                    ) {
+
+                        if (
+                            !foundTopics.includes(
+                                entry.name
+                            )
+                        ) {
+
+                            foundTopics.push(
+                                entry.name
+                            );
+
+                        }
+
+                        break;
+
+                    }
+
+                }
+
+            }
 
 
-        const response =
-        await fetch(url);
+            return foundTopics;
+
+        }
 
 
-        if(!response.ok){
+        /* =========================================
+           UNIQUE VERSES
+        
+           IMPORTANT:
+           SAME AYAH CAN NEVER APPEAR TWICE.
+        ========================================= */
 
-            throw new Error(
-                "Search failed"
+        function uniqueVerseKeys(
+            verseKeys
+        ) {
+
+            const seen =
+                new Set();
+
+            const unique = [];
+
+
+            for (
+                const key of verseKeys
+            ) {
+
+                if (
+                    !key ||
+                    seen.has(key)
+                ) {
+
+                    continue;
+
+                }
+
+
+                seen.add(key);
+
+                unique.push(key);
+
+            }
+
+
+            return unique;
+
+        }
+
+
+        /* =========================================
+           COLLECT CURATED VERSES
+        ========================================= */
+
+        function collectCuratedVerses(
+            detectedTopics
+        ) {
+
+            const combined = [];
+
+
+            /*
+               Important:
+               We add verse KEYS only.
+        
+               We do NOT add search snippets.
+               Therefore one key = one complete ayah.
+            */
+
+            for (
+                const topicName of detectedTopics
+            ) {
+
+                const topic =
+                    TOPICS[topicName];
+
+
+                topic.verses.forEach(
+                    key => {
+
+                        combined.push(
+                            key
+                        );
+
+                    }
+                );
+
+            }
+
+
+            return uniqueVerseKeys(
+                combined
+            ).slice(
+                0,
+                10
             );
 
         }
 
 
-        const data =
-        await response.json();
+        /* =========================================
+           SEARCH
+        ========================================= */
+
+        searchButton.addEventListener(
+            "click",
+            searchQuran
+        );
 
 
-        const found =
-        data.search?.results || [];
+        promptInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter" &&
+                    !event.shiftKey
+                ) {
+
+                    event.preventDefault();
+
+                    searchQuran();
+
+                }
+
+            }
+        );
 
 
-        if(!found.length){
+        /* =========================================
+           MAIN SEARCH
+        ========================================= */
 
-            cards.innerHTML=`
+        async function searchQuran() {
 
-                <div class="ayah">
+            // const userPrompt = promptInput.value.trim();
 
-                    <h3>
-                        Ayat nahi mili
-                    </h3>
+            const user_pr = promptInput.value.trim();
 
-                    <br>
+            const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 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"
+                },
+                body: JSON.stringify({
+                    model: "openai/gpt-4o-mini",
+                    messages: [
+                        {
+                            role: "system",
+                            content: `You are a language detector and translator.
 
-                    Dusra topic try karein,
-                    jaise <b>Sabr</b>,
-                    <b>Rehmat</b> ya
-                    <b>Maafi</b>.
+If the user's input is in Urdu, translate it into English.
+If the user's input is Roman Urdu, translate it into English.
+If the user's input is already English, return it exactly as it is.
+Return ONLY the final text. Do not add explanations.`
+                        },
+                        {
+                            role: "user",
+                            content: user_pr
+                        }
+                    ]
+                })
+            });
+
+            const data = await response.json();
+
+            const userPrompt = data.choices[0].message.content.trim();
+
+
+
+            if (!userPrompt) {
+
+                alert(
+                    "Please write your topic first."
+                );
+
+                return;
+
+            }
+
+
+            /*
+               Search loader ONLY starts
+               after user presses Search.
+            */
+
+            searchLoading.style.display =
+                "block";
+
+
+            results.style.display =
+                "none";
+
+
+            cards.innerHTML =
+                "";
+
+
+            resultInfo.textContent =
+                "";
+
+
+            searchButton.disabled =
+                true;
+
+
+            searchButton.textContent =
+                "Searching...";
+
+
+            try {
+
+                const detectedTopics =
+                    detectTopics(
+                        userPrompt
+                    );
+
+
+                let verseKeys = [];
+
+
+                /*
+                   Known topics:
+                   use curated complete verses.
+                */
+
+                if (
+                    detectedTopics.length > 0
+                ) {
+
+                    verseKeys =
+                        collectCuratedVerses(
+                            detectedTopics
+                        );
+
+
+                    resultInfo.textContent =
+                        detectedTopics
+                            .map(
+                                topic =>
+                                    topic
+                                        .charAt(0)
+                                        .toUpperCase()
+                                    +
+                                    topic.slice(1)
+                            )
+                            .join(" and ");
+
+                }
+
+
+                /*
+                   Unknown topic:
+                   API fallback.
+                */
+
+                else {
+
+                    verseKeys =
+                        await fallbackSearch(
+                            userPrompt
+                        );
+
+
+                    resultInfo.textContent =
+                        "Search results";
+
+                }
+
+
+                /*
+                   Final duplicate protection.
+                */
+
+                verseKeys =
+                    uniqueVerseKeys(
+                        verseKeys
+                    ).slice(
+                        0,
+                        10
+                    );
+
+
+                if (
+                    verseKeys.length === 0
+                ) {
+
+                    cards.innerHTML = `
+
+                <div class="messageCard">
+
+                    No closely related ayah was found.
+                    Please try another topic.
 
                 </div>
 
             `;
 
-        }
+                }
+                else {
 
-        else{
+                    /*
+                       ONE KEY AT A TIME
+                       = ONE COMPLETE AYAH CARD
+                    */
+
+                    for (
+                        let i = 0;
+                        i < verseKeys.length;
+                        i++
+                    ) {
+
+                        await createAyahCard(
+                            verseKeys[i],
+                            i
+                        );
+
+                    }
+
+                }
 
 
-            /* =========================================
-               CREATE EACH AYAH
-            ========================================= */
-
-            for(
-                let i=0;
-                i<found.length;
-                i++
-            ){
-
-                await createAyahCard(
-                    found[i],
-                    i
-                );
+                results.style.display =
+                    "block";
 
             }
 
-        }
+            catch {
 
+                cards.innerHTML = `
 
-        results.classList.remove(
-            "hidden"
-        );
+            <div class="messageCard error">
 
-
-    }
-
-    catch(error){
-
-        cards.innerHTML=`
-
-            <div class="ayah error">
-
-                <h3>
-                    Connection problem
-                </h3>
-
-                <br>
-
-                Internet connection check
-                karein aur dobara try karein.
+                Quran could not be loaded right now.
+                Please try again.
 
             </div>
 
         `;
 
 
-        results.classList.remove(
-            "hidden"
-        );
+                results.style.display =
+                    "block";
 
-    }
+            }
 
+            finally {
 
-    loading.classList.add(
-        "hidden"
-    );
-
-
-    searchBtn.disabled=false;
-
-    searchBtn.textContent=
-    "✨ Find Quranic Guidance";
-
-}
+                searchLoading.style.display =
+                    "none";
 
 
-/* =====================================================
-   CREATE AYAH CARD
-===================================================== */
-
-async function createAyahCard(
-    result,
-    index
-){
-
-    const verseKey =
-    result.verse_key;
+                searchButton.disabled =
+                    false;
 
 
-    /* =============================================
-       GET ARABIC AYAH
-    ============================================= */
+                searchButton.textContent =
+                    "Find Quranic Guidance";
 
-    const response =
-    await fetch(
+            }
 
-        "https://api.alquran.cloud/v1/ayah/"
-        +
-        verseKey
-
-    );
+        }
 
 
-    if(!response.ok){
+        /* =========================================
+           API FALLBACK
+        ========================================= */
 
-        return;
+        async function fallbackSearch(
+            query
+        ) {
 
-    }
-
-
-    const data =
-    await response.json();
-
-
-    const ayah =
-    data.data;
-
-
-    if(!ayah){
-
-        return;
-
-    }
+            const url =
+                "https://api.alquran.cloud/v1/search/"
+                +
+                encodeURIComponent(query)
+                +
+                "/all/en";
 
 
-    /* =============================================
-       URDU TRANSLATION
-    ============================================= */
-
-    let urdu =
-    "Urdu translation unavailable.";
+            const response =
+                await fetch(url);
 
 
-    if(
-        result.translations &&
-        result.translations.length
-    ){
+            if (!response.ok) {
 
-        urdu =
-        cleanHTML(
-            result.translations[0].text
-        );
+                return [];
 
-    }
+            }
 
 
-    /* =============================================
-       CARD
-    ============================================= */
-
-    const card =
-    document.createElement("div");
+            const data =
+                await response.json();
 
 
-    card.className=
-    "ayah";
+            const matches =
+                data.data?.matches || [];
 
 
-    card.innerHTML=`
+            const keys = [];
 
-        <div class="number">
 
-            ${index+1}
+            for (
+                const match of matches
+            ) {
 
+                /*
+                   Convert every API result
+                   into a verse key.
+        
+                   Never display match.text directly.
+                */
+
+                const key =
+                    match.verseKey ||
+                    match.verse?.verseKey ||
+                    (
+                        match.surah
+                            ? `${match.surah.number}:${match.numberInSurah}`
+                            : null
+                    );
+
+
+                if (key) {
+
+                    keys.push(
+                        key
+                    );
+
+                }
+
+            }
+
+
+            return uniqueVerseKeys(
+                keys
+            ).slice(
+                0,
+                10
+            );
+
+        }
+
+
+        /* =========================================
+           CREATE ONE COMPLETE AYAH
+        ========================================= */
+
+        async function createAyahCard(
+            verseKey,
+            index
+        ) {
+
+            /*
+               Exact ayah endpoint.
+        
+               Example:
+               13:28
+        
+               Returns the COMPLETE verse,
+               not a search snippet.
+            */
+
+            const url =
+                "https://api.alquran.cloud/v1/ayah/"
+                +
+                encodeURIComponent(
+                    verseKey
+                )
+                +
+                "/editions/"
+                +
+                "quran-uthmani,ur.jalandhry";
+
+
+            const response =
+                await fetch(
+                    url
+                );
+
+
+            if (!response.ok) {
+
+                return;
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            const editions =
+                data.data || [];
+
+
+            let arabic =
+                "";
+
+            let urdu =
+                "";
+
+            let globalNumber =
+                null;
+
+
+            for (
+                const edition of editions
+            ) {
+
+                if (
+                    edition.edition?.identifier ===
+                    "quran-uthmani"
+                ) {
+
+                    arabic =
+                        edition.text;
+
+                    globalNumber =
+                        edition.number;
+
+                }
+
+
+                if (
+                    edition.edition?.identifier ===
+                    "ur.jalandhry"
+                ) {
+
+                    urdu =
+                        edition.text;
+
+                }
+
+            }
+
+
+            /*
+               Do not render incomplete data.
+            */
+
+            if (
+                !arabic ||
+                !urdu ||
+                !globalNumber
+            ) {
+
+                return;
+
+            }
+
+
+            const arabicEdition =
+                editions.find(
+                    item =>
+                        item.edition?.identifier ===
+                        "quran-uthmani"
+                );
+
+
+            const surahName =
+                arabicEdition
+                    ?.surah
+                    ?.englishName
+                ||
+                arabicEdition
+                    ?.surah
+                    ?.name
+                ||
+                "";
+
+
+            /*
+               Create exactly ONE card.
+            */
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "ayahCard";
+
+
+            card.style.animationDelay =
+                `${index * 0.05}s`;
+
+
+            card.innerHTML = `
+
+        <div class="ayahNumber">
+            ${index + 1}
         </div>
 
 
-        <div class="arabic">
+        <!-- COMPLETE ARABIC AYAH -->
 
-            ${safe(ayah.text)}
-
+        <div
+            class="arabic"
+            lang="ar"
+            dir="rtl"
+        >
+            ${escapeHTML(arabic)}
         </div>
 
 
-        <div class="translation">
+        <!-- COMPLETE URDU TRANSLATION -->
 
+        <div class="translationBox">
 
-            <div class="translation-title">
+            <div
+                class="translationTitle"
+                lang="ur"
+                dir="rtl"
+            >
 
-                🇵🇰 URDU TARJUMA
+                اردو ترجمہ — فتح محمد جالندھری
 
             </div>
 
 
-            <div class="urdu">
+            <div
+                class="urdu"
+                lang="ur"
+                dir="rtl"
+            >
 
-                ${safe(urdu)}
+                ${escapeHTML(urdu)}
 
             </div>
 
-
         </div>
 
+
+        <!-- REFERENCE -->
 
         <div class="reference">
 
-            📖 Surah / Ayah:
-            ${safe(verseKey)}
+            ${escapeHTML(surahName)}
+
+            ${surahName ? " - " : ""}
+
+            Ayah ${escapeHTML(verseKey)}
 
         </div>
 
 
-        <div class="audio">
+        <!-- AUDIO -->
 
+        <div class="audioBox">
 
-            <div class="audio-top">
+            <div class="audioTop">
 
-
-                <button class="play">
-
-                    ▶
-
+                <button
+                    class="playButton"
+                    type="button"
+                >
+                    Play
                 </button>
 
 
-                <div class="audio-info">
+                <div class="audioText">
 
                     <strong>
-
                         Quran Recitation
-
                     </strong>
 
-
                     <small>
-
                         Selected Qari
-
                     </small>
 
                 </div>
-
 
             </div>
 
 
             <audio
+                class="audioPlayer"
                 controls
                 preload="none"
             ></audio>
 
 
-            <div class="status"></div>
-
+            <div class="audioStatus">
+                Ready to play
+            </div>
 
         </div>
 
     `;
 
 
-    /* =============================================
-       AUDIO
-    ============================================= */
+            /* =========================================
+               AUDIO
+            ========================================= */
 
-    const playButton =
-    card.querySelector(".play");
-
-
-    const audio =
-    card.querySelector("audio");
+            const playButton =
+                card.querySelector(
+                    ".playButton"
+                );
 
 
-    const status =
-    card.querySelector(".status");
+            const audio =
+                card.querySelector(
+                    ".audioPlayer"
+                );
 
 
-    playButton.onclick=()=>{
+            const audioStatus =
+                card.querySelector(
+                    ".audioStatus"
+                );
 
 
-        const qari =
-        reciter.value;
+            let loadedQari =
+                "";
 
 
-        /*
-           Islamic Network audio
-        */
+            async function loadAudio() {
 
-        audio.src =
-        `https://cdn.islamic.network/quran/audio/128/${qari}/${ayah.number}.mp3`;
+                const selectedQari =
+                    reciter.value;
 
 
-        audio.play()
+                /*
+                   Get audio source from API.
+                */
 
-        .then(()=>{
-
-            playButton.textContent=
-            "⏸";
-
-            status.textContent=
-            "🔊 Recitation playing...";
-
-        })
-
-        .catch(()=>{
-
-            status.textContent=
-            "Audio play nahi ho saka.";
-
-        });
-
-    };
+                const audioURL =
+                    "https://api.alquran.cloud/v1/ayah/"
+                    +
+                    globalNumber
+                    +
+                    "/"
+                    +
+                    selectedQari;
 
 
-    audio.onpause=()=>{
+                const audioResponse =
+                    await fetch(
+                        audioURL
+                    );
 
-        if(!audio.ended){
 
-            playButton.textContent=
-            "▶";
+                if (!audioResponse.ok) {
 
-            status.textContent=
-            "Paused";
+                    throw new Error();
+
+                }
+
+
+                const audioData =
+                    await audioResponse.json();
+
+
+                const source =
+                    audioData.data?.audio;
+
+
+                if (!source) {
+
+                    throw new Error();
+
+                }
+
+
+                audio.src =
+                    source;
+
+
+                audio.load();
+
+
+                loadedQari =
+                    selectedQari;
+
+            }
+
+
+            /* =========================================
+               PLAY / PAUSE
+            ========================================= */
+
+            playButton.addEventListener(
+                "click",
+                async function () {
+
+                    try {
+
+                        /*
+                           If Qari changed,
+                           load again.
+                        */
+
+                        if (
+                            loadedQari !==
+                            reciter.value
+                        ) {
+
+                            audioStatus.textContent =
+                                "Loading recitation...";
+
+                            await loadAudio();
+
+                        }
+
+
+                        if (
+                            audio.paused
+                        ) {
+
+                            await audio.play();
+
+                        }
+                        else {
+
+                            audio.pause();
+
+                        }
+
+                    }
+
+                    catch {
+
+                        playButton.textContent =
+                            "Play";
+
+                        audioStatus.textContent =
+                            "This recitation is unavailable.";
+
+                    }
+
+                }
+            );
+
+
+            /* =========================================
+               AUDIO EVENTS
+            ========================================= */
+
+            audio.addEventListener(
+                "play",
+                function () {
+
+                    playButton.textContent =
+                        "Pause";
+
+                    audioStatus.textContent =
+                        "Playing";
+
+                }
+            );
+
+
+            audio.addEventListener(
+                "pause",
+                function () {
+
+                    if (
+                        !audio.ended
+                    ) {
+
+                        playButton.textContent =
+                            "Play";
+
+                        audioStatus.textContent =
+                            "Paused";
+
+                    }
+
+                }
+            );
+
+
+            audio.addEventListener(
+                "ended",
+                function () {
+
+                    playButton.textContent =
+                        "Play";
+
+                    audioStatus.textContent =
+                        "Finished";
+
+                }
+            );
+
+
+            audio.addEventListener(
+                "error",
+                function () {
+
+                    playButton.textContent =
+                        "Play";
+
+                    audioStatus.textContent =
+                        "This recitation is unavailable.";
+
+                }
+            );
+
+
+            /*
+               Append exactly one card.
+            */
+
+            cards.appendChild(
+                card
+            );
 
         }
 
-    };
+
+        /* =========================================
+           QARI CHANGE
+        ========================================= */
+
+        reciter.addEventListener(
+            "change",
+            function () {
+
+                document
+                    .querySelectorAll(
+                        ".ayahCard"
+                    )
+                    .forEach(
+                        card => {
+
+                            const audio =
+                                card.querySelector(
+                                    ".audioPlayer"
+                                );
+
+                            const button =
+                                card.querySelector(
+                                    ".playButton"
+                                );
+
+                            const status =
+                                card.querySelector(
+                                    ".audioStatus"
+                                );
 
 
-    audio.onended=()=>{
+                            audio.pause();
 
-        playButton.textContent=
-        "▶";
+                            audio.currentTime =
+                                0;
 
-        status.textContent=
-        "Finished ✓";
+                            audio.removeAttribute(
+                                "src"
+                            );
 
-    };
-
-
-    audio.onerror=()=>{
-
-        playButton.textContent=
-        "▶";
-
-        status.textContent=
-        "Audio unavailable.";
-
-    };
+                            audio.load();
 
 
-    cards.appendChild(card);
-
-}
-
-
-/* =====================================================
-   REMOVE HTML
-===================================================== */
-
-function cleanHTML(text){
-
-    const div =
-    document.createElement("div");
+                            button.textContent =
+                                "Play";
 
 
-    div.innerHTML =
-    text;
+                            status.textContent =
+                                "New Qari selected";
+
+                        }
+                    );
+
+            }
+        );
 
 
-    return(
-        div.textContent ||
-        div.innerText ||
-        ""
-    );
+        /* =========================================
+           ESCAPE TEXT
+        ========================================= */
 
-}
+        function escapeHTML(text) {
 
+            return String(text)
 
-/* =====================================================
-   SECURITY
-===================================================== */
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
 
-function safe(text){
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
 
-    return String(text)
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
 
-    .replaceAll(
-        "&",
-        "&amp;"
-    )
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
 
-    .replaceAll(
-        "<",
-        "&lt;"
-    )
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
 
-    .replaceAll(
-        ">",
-        "&gt;"
-    )
+        }
 
-    .replaceAll(
-        '"',
-        "&quot;"
-    )
-
-    .replaceAll(
-        "'",
-        "&#039;"
-    );
-
-}
-
-</script>
-
+    </script>
 </body>
+
 </html>
